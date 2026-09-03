@@ -114,7 +114,8 @@ def write_report_to_file(filepath, content):
     """Writes a text report to a file."""
     # TODO: Your code here
     # Hint: Use 'with open(filepath, 'w')' to open file for writing
-    pass
+    with open(filepath, 'w') as output_file:
+        output_file.write(content)
 
 
 def format_header(title):
@@ -122,7 +123,10 @@ def format_header(title):
     # TODO: Your code here
     # Hint: Use "=" * 60 to create a line of equals signs
     # Hint: Use .center(60) to center the title
-    pass
+    divider = '=' * 60
+    centered_title = title.center(60)
+    header = f"{divider}\n{centered_title}\n{divider}"
+    return header
 
 
 # Testing functions
@@ -168,7 +172,11 @@ if __name__ == '__main__':
     print(f"First joined flight logs and pilots: {flight_logs[0]}")
 
     # write_report_to_file(filepath, content):
-    pass
+    write_test_filepath = '../reports/write_test.txt'
+    write_test_string = 'write test string'
+    write_report_to_file(write_test_filepath, write_test_string)
+    print(f"Write test created: \"{write_test_string}\" in \"{write_test_filepath}\"")
 
     # format_header(title):
-    pass
+    header_test = format_header("Header Test")
+    print(header_test)
