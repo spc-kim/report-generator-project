@@ -74,8 +74,8 @@ def generate_squadron_report(squadron_code, output_file):
     # TODO: PART 5 - Build the report content
 
     # Create full header with title and squadron code on separate lines:
-    title_line = "SQUADRON ACTIVITY REPORT:".center(60)
-    squadron_code_line = squadron_code.center(60)
+    title_line = "SQUADRON ACTIVITY REPORT:".center(70)
+    squadron_code_line = squadron_code.center(70)
     full_header = f"{title_line}\n{squadron_code_line}"
     report = rf.format_header(full_header)
 

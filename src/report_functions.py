@@ -123,8 +123,8 @@ def format_header(title):
     # TODO: Your code here
     # Hint: Use "=" * 60 to create a line of equals signs
     # Hint: Use .center(60) to center the title
-    divider = '=' * 60
-    centered_title = title.center(60)
+    divider = '=' * 70
+    centered_title = title.center(70)
     header = f"{divider}\n{centered_title}\n{divider}"
     return header
 
