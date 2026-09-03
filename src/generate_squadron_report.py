@@ -97,48 +97,50 @@ def generate_squadron_report(squadron_code, output_file):
     report = rf.format_header(full_header)
 
     # Total squadron personnel:
-    report += f"\nTOTAL SQUADRON PERSONNEL: {squadron_total_pilots}"
+    report += f"\nTOTAL SQUADRON PERSONNEL:\t{squadron_total_pilots}"
 
     # Squadron personnel roster (all assigned pilots):
-    squadron_pilot_names = []
+    report += "\nSQUADRON PERSONNEL ROSTER:"
     for squadron_pilot in squadron_pilots:
-        squadron_pilot_names.append("\t" + squadron_pilot['last_name'].upper() + ", " + squadron_pilot['first_name'].upper())
-    squadron_pilots_str = '\n'.join(squadron_pilot_names)
-    report += f"\nSQUADRON PERSONNEL ROSTER:\n{squadron_pilots_str}"
+        squadron_pilot_id = squadron_pilot.get('pilot_id', 'N/A')
+        squadron_pilot_fullname = (squadron_pilot.get('last_name', 'N/A') + ', ' + squadron_pilot.get('first_name', 'N/A'))
+        squadron_pilot_rank = (squadron_pilot.get('rank', 'N/A'))
+        report += f"\n\tPERSONNEL ID: {squadron_pilot_id}\t\tNAME: {squadron_pilot_fullname}\t\tRANK: {squadron_pilot_rank}"
 
     # Total squadron aircraft:
-    report += f"\nTOTAL SQUADRON AIRCRAFT: {squadron_total_aircraft}"
+    report += f"\nTOTAL SQUADRON AIRCRAFT:\t{squadron_total_aircraft}"
 
     # Squadron aircraft inventory (all assigned aircraft):
-    squadron_aircraft_ids = []
+    report += f"\nSQUADRON AIRCRAFT INVENTORY:"
     for squadron_aircraft in squadron_aircrafts:
-        squadron_aircraft_ids.append(squadron_aircraft['aircraft_id'])
-    squadron_aircrafts_str = ', '.join(squadron_aircraft_ids)
-    report += f"\nSQUADRON AIRCRAFT INVENTORY:\n\t{squadron_aircrafts_str}"
+        squadron_aircraft_id = squadron_aircraft.get('aircraft_id', 'N/A')
+        squadron_aircraft_model = squadron_aircraft.get('type', squadron_aircraft.get('model', 'N/A'))
+        squadron_aircraft_status = squadron_aircraft.get('status', 'N/A')
+        report += f"\n\tAIRCRAFT ID: {squadron_aircraft_id}\t\tTYPE: {squadron_aircraft_model}\t\tSTATUS: {squadron_aircraft_status}"
 
     # Total flight hours for the squadron:
-    report += f"\nTOTAL SQUADRON FLIGHT HOURS: {squadron_total_hours:.1f}"
+    report += f"\nTOTAL SQUADRON FLIGHT HOURS:\t{squadron_total_hours:.1f}"
 
     # Total number of missions flown:
-    report += f"\nTOTAL SQUADRON MISSIONS FLOWN: {squadron_total_missions}"
+    report += f"\nTOTAL SQUADRON MISSIONS FLOWN:\t{squadron_total_missions}"
 
     # Breakdown of missions by type (Training, Patrol, Combat, etc.):
-    squadron_mission_types_str = ', '.join(squadron_mission_types).upper()
     report += f"\nBREAKDOWN OF SQUADRON MISSIONS BY TYPE:"
     for mission_type in squadron_mission_types:
         flight_logs_of_type = rf.filter_by_field(squadron_flight_logs, 'mission_type', mission_type)
         count_per_type = rf.count_records(flight_logs_of_type)
-        report += f"\n\t{mission_type.upper()}: {count_per_type}"
+        report += f"\n\t{mission_type}:\t{count_per_type}"
 
     # Average mission duration:
-    report += f"\nAVERAGE SQUADRON MISSION DURATION: {squadron_avg_mission_duration:.1f}"
+    report += f"\nAVERAGE SQUADRON MISSION DURATION:\t{squadron_avg_mission_duration:.1f}"
+    report = report.upper()
 
     # Current operational status:
-    squadron_mission_statuses = []
-    for status in squadron_operational_status:
-        squadron_mission_statuses.append(status.upper())
-    squadron_operational_status_str = ', '.join(squadron_mission_statuses)
-    report += f"\nCURRENT OPERATIONAL STATUS: {squadron_operational_status_str}"
+    # squadron_mission_statuses = []
+    # for status in squadron_operational_status:
+    #     squadron_mission_statuses.append(status)
+    # squadron_operational_status_str = ', '.join(squadron_mission_statuses)
+    # report += f"\nCURRENT OPERATIONAL STATUS: {squadron_operational_status_str}"
 
     # print(report)
 
