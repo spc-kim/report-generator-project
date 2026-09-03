@@ -99,7 +99,15 @@ def join_data(primary_list, secondary_list, primary_key, foreign_key):
     # Hint: Create a dictionary mapping secondary_list IDs to records
     # Hint: For each record in primary_list, look up the matching secondary record
     # Hint: Use dict.update() to merge dictionaries
-    pass
+    lookup = {}
+    for secondary_record in secondary_list:
+        key_id = secondary_record[primary_key]
+        lookup[key_id] = secondary_record
+    for primary_record in primary_list:
+        match_id = primary_record[foreign_key]
+        if match_id in lookup:
+            primary_record.update(lookup[match_id])
+    return primary_list
 
 
 def write_report_to_file(filepath, content):
@@ -151,3 +159,16 @@ if __name__ == '__main__':
     # find_record_by_id(data_list, id_field, id_value):
     pilots_twentieth_id = find_record_by_id(pilots, 'pilot_id', 'P020')
     print(f"Pilots 20th ID: {pilots_twentieth_id}")
+
+    # join_data(primary_list, secondary_list, primary_key, foreign_key):
+    flight_logs = read_csv_file('../data/flight_logs.csv')
+    print(f"Loaded {len(flight_logs)} flight logs")
+    print(f"First flight logs: {flight_logs[0]}")
+    joined_flight_logs_pilots = join_data(flight_logs, pilots, 'pilot_id', 'pilot_id')
+    print(f"First joined flight logs and pilots: {flight_logs[0]}")
+
+    # write_report_to_file(filepath, content):
+    pass
+
+    # format_header(title):
+    pass
