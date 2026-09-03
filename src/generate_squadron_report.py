@@ -49,7 +49,18 @@ def generate_squadron_report(squadron_code, output_file):
     print(squadron_flight_logs[0])
 
     # TODO: PART 4 - Calculate statistics
-    pass
+    # Total flight hours for the squadron
+    squadron_total_hours = rf.calculate_total(squadron_flight_logs, 'duration_hours')
+    print(squadron_total_hours)
+    # Total number of missions flown
+    squadron_total_missions = rf.count_records(squadron_flight_logs)
+    print(squadron_total_missions)
+    # Breakdown of missions by type (Training, Patrol, Combat, etc.)
+    squadron_mission_types = rf.get_unique_values(squadron_flight_logs, 'mission_type')
+    print(squadron_mission_types)
+    # Average mission duration
+    squadron_avg_mission_duration = rf.calculate_average(squadron_flight_logs, 'duration_hours')
+    print(squadron_avg_mission_duration)
 
     # TODO: PART 5 - Build the report content
     pass
