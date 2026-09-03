@@ -47,7 +47,11 @@ def filter_by_field(data_list, field_name, field_value):
     # TODO: Your code here
     # Hint: Use a list comprehension to filter or a loop!
     # see here for more info: https://docs.python.org/3.13/tutorial/datastructures.html#list-comprehensions
-    pass
+    filtered_ata_list = []
+    for record in data_list:
+        if record[field_name] == field_value:
+            filtered_ata_list.append(record)
+    return filtered_ata_list
 
 
 def calculate_total(data_list, field_name):
@@ -107,16 +111,20 @@ if __name__ == '__main__':
     print("Testing report functions...")
     print("Implement functions above, then uncomment test code below")
 
-    # read_csv_file:
+    # read_csv_file(filepath):
     pilots = read_csv_file('../data/pilots.csv')
     print(f"Loaded {len(pilots)} pilots")
 
     print(f"First pilot: {pilots[0]}")
 
-    # count_records:
+    # count_records(data_list):
     pilot_count = count_records(pilots)
     print(f"Pilot count: {pilot_count}")
 
-    # get_unique_values:
+    # get_unique_values(data_list, field_name):
     pilot_ranks = get_unique_values(pilots, 'rank')
     print(f"Pilot ranks: {pilot_ranks}")
+
+    # filter_by_field(data_list, field_name, field_value):
+    pilot_ranks_filtered = filter_by_field(pilots, 'rank', 'Lt')
+    print(f"Pilot ranks filtered: {pilot_ranks_filtered}")
