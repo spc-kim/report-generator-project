@@ -16,7 +16,10 @@ def read_csv_file(filepath):
     # TODO: Your code here
     # Hint: Use csv.DictReader to read CSV files into dictionaries
     # Hint: Remember to use 'with open()' for proper file handling
-    pass
+    with open(filepath, 'r') as file_obj:
+        csv_reader = csv.DictReader(file_obj)
+        csv_dicts_list = list(csv_reader)
+    return csv_dicts_list
 
 
 def count_records(data_list):
@@ -98,7 +101,9 @@ def format_header(title):
 if __name__ == '__main__':
     print("Testing report functions...")
     print("Implement functions above, then uncomment test code below")
-    
-    # # Test read_csv_file
-    # pilots = read_csv_file('../data/pilots.csv')
-    # print(f"Loaded {len(pilots)} pilots")
+
+    # Test read_csv_file
+    pilots = read_csv_file('../data/pilots.csv')
+    print(f"Loaded {len(pilots)} pilots")
+
+    print(f"First pilot: {pilots[0]}")
