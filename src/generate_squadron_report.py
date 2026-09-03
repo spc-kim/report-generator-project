@@ -44,10 +44,10 @@ def generate_squadron_report(squadron_code, output_file):
 
     # TODO: PART 3 - Get flights for squadron pilots
 
-    # Join pilots list with flight logs with pilot data by the shared pilot id column
+    # Get all pilot IDs for the squadron
     joined_flight_logs = rf.join_data(flight_logs, pilots, 'pilot_id', 'pilot_id')
 
-    # Filter out joined flight logs that don't have matching squadron
+    # Filter out flight logs that don't have squadron's pilot IDs
     squadron_flight_logs = rf.filter_by_field(joined_flight_logs, 'squadron', squadron_code)
 
 
@@ -69,7 +69,11 @@ def generate_squadron_report(squadron_code, output_file):
     squadron_mission_types = rf.get_unique_values(squadron_flight_logs, 'mission_type')
 
     # Average mission duration:
-    squadron_avg_mission_duration = rf.calculate_average(squadron_flight_logs, 'duration_hours')
+    if squadron_total_missions > 0:
+        squadron_avg_mission_duration = rf.calculate_average(squadron_flight_logs, 'duration_hours')
+    else:
+        squadron_avg_mission_duration = 0.0
+
 
     # TODO: PART 5 - Build the report content
 
@@ -113,7 +117,7 @@ def generate_squadron_report(squadron_code, output_file):
         report += f"\n\t{mission_type}:\t{count_per_type}"
 
     # Average mission duration:
-    report += f"\nAVERAGE SQUADRON MISSION DURATION:\t{squadron_avg_mission_duration:.1f}"
+    report += f"\nAVERAGE SQUADRON MISSION DURATION:\t{squadron_avg_mission_duration:.2f}"
     report = report.upper()
 
     # TODO: PART 6 - Write the report to file
@@ -129,3 +133,15 @@ if __name__ == '__main__':
 
     # Example: Generate report for VFA-41 (Black Aces)
     generate_squadron_report('VFA-41', '../reports/vfa-41-report.txt')
+
+    # VFA-25 (Fist of the Fleet)
+    generate_squadron_report('VFA-25', '../reports/vfa-25-report.txt')
+
+    # VFA-154 (Black Knights)
+    generate_squadron_report('VFA-154', '../reports/vfa-154-report.txt')
+
+    # VFA-113 (Stingers)
+    generate_squadron_report('VFA-113', '../reports/vfa-113-report.txt')
+
+    # VFA-14 (Tophatters)
+    generate_squadron_report('VFA-14', '../reports/vfa-14-report.txt')

@@ -101,12 +101,12 @@ def join_data(primary_list, secondary_list, primary_key, foreign_key):
     # Hint: Use dict.update() to merge dictionaries
     lookup = {}
     for secondary_record in secondary_list:
-        key_id = secondary_record[primary_key]
+        key_id = secondary_record[foreign_key]
         lookup[key_id] = secondary_record
     joined_list = []
     for primary_record in primary_list:
         new_record = primary_record.copy()
-        match_id = new_record[foreign_key]
+        match_id = new_record[primary_key]
         if match_id in lookup:
             new_record.update(lookup[match_id])
         joined_list.append(new_record)
