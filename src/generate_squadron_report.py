@@ -23,70 +23,53 @@ def generate_squadron_report(squadron_code, output_file):
     # Read and load pilots CSV:
     pilots_filepath = '../data/pilots.csv'
     pilots = rf.read_csv_file(pilots_filepath)
-    # print(pilots[0])
 
     # Read and load flight logs CSV:
     flight_logs_filepath = '../data/flight_logs.csv'
     flight_logs = rf.read_csv_file(flight_logs_filepath)
-    # print(flight_logs[0])
 
     # Read and load aircraft CSV:
     aircraft_filepath = '../data/aircraft.csv'
     aircraft = rf.read_csv_file(aircraft_filepath)
-    # print(aircraft[0])
 
 
     # TODO: PART 2 - Filter data for the specified squadron
 
     # Filter out pilots not belonging to specified squadron:
     squadron_pilots = rf.filter_by_field(pilots, 'squadron', squadron_code)
-    # print(squadron_pilots[0])
 
     # Filter out aircraft not belonging to specified squadron:
     squadron_aircrafts = rf.filter_by_field(aircraft, 'squadron', squadron_code)
-    # print(squadron_aircrafts[0])
 
 
     # TODO: PART 3 - Get flights for squadron pilots
 
     # Join pilots list with flight logs with pilot data by the shared pilot id column
     joined_flight_logs = rf.join_data(flight_logs, pilots, 'pilot_id', 'pilot_id')
-    # print(joined_flight_logs[0])
 
     # Filter out joined flight logs that don't have matching squadron
     squadron_flight_logs = rf.filter_by_field(joined_flight_logs, 'squadron', squadron_code)
-    # print(squadron_flight_logs[0])
 
 
     # TODO: PART 4 - Calculate statistics
 
     # Squadron personnel roster (all assigned pilots):
     squadron_total_pilots = len(squadron_pilots)
-    # print(squadron_pilot_count)
 
     # Squadron aircraft inventory (all assigned aircraft):
     squadron_total_aircraft = len(squadron_aircrafts)
-    # print(squadron_aircrafts_count)
 
     # Total flight hours for the squadron:
     squadron_total_hours = rf.calculate_total(squadron_flight_logs, 'duration_hours')
-    # print(squadron_total_hours)
 
     # Total number of missions flown:
     squadron_total_missions = rf.count_records(squadron_flight_logs)
-    # print(squadron_total_missions)
 
     # Breakdown of missions by type (Training, Patrol, Combat, etc.):
     squadron_mission_types = rf.get_unique_values(squadron_flight_logs, 'mission_type')
-    # print(squadron_mission_types)
 
     # Average mission duration:
     squadron_avg_mission_duration = rf.calculate_average(squadron_flight_logs, 'duration_hours')
-    # print(squadron_avg_mission_duration)
-
-    # Current operational status:
-    squadron_operational_status = rf.get_unique_values(squadron_aircrafts, 'status')
-
 
     # TODO: PART 5 - Build the report content
 
