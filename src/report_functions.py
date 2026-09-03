@@ -16,10 +16,10 @@ def read_csv_file(filepath):
     # TODO: Your code here
     # Hint: Use csv.DictReader to read CSV files into dictionaries
     # Hint: Remember to use 'with open()' for proper file handling
-    with open(filepath, 'r') as file_obj:
-        csv_reader = csv.DictReader(file_obj)
-        csv_dicts_list = list(csv_reader)
-    return csv_dicts_list
+    with open(filepath, 'r') as file:
+        reader = csv.DictReader(file)
+        data = list(reader)
+    return data
 
 
 def count_records(data_list):
@@ -35,7 +35,11 @@ def get_unique_values(data_list, field_name):
     # TODO: Your code here
     # Hint: Use a set to collect unique values
     # Hint: Convert the set to a list and sort it before returning
-    pass
+    unique_set = set()
+    for record in data_list:
+        value = record[field_name]
+        unique_set.add(value)
+    return sorted(list(unique_set))
 
 
 def filter_by_field(data_list, field_name, field_value):
@@ -103,12 +107,16 @@ if __name__ == '__main__':
     print("Testing report functions...")
     print("Implement functions above, then uncomment test code below")
 
-    # Test read_csv_file
+    # read_csv_file:
     pilots = read_csv_file('../data/pilots.csv')
     print(f"Loaded {len(pilots)} pilots")
 
     print(f"First pilot: {pilots[0]}")
 
-    # Test count_records
+    # count_records:
     pilot_count = count_records(pilots)
     print(f"Pilot count: {pilot_count}")
+
+    # get_unique_values:
+    pilot_ranks = get_unique_values(pilots, 'rank')
+    print(f"Pilot ranks: {pilot_ranks}")
