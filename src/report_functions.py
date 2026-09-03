@@ -47,11 +47,11 @@ def filter_by_field(data_list, field_name, field_value):
     # TODO: Your code here
     # Hint: Use a list comprehension to filter or a loop!
     # see here for more info: https://docs.python.org/3.13/tutorial/datastructures.html#list-comprehensions
-    filtered_ata_list = []
+    filtered_data_list = []
     for record in data_list:
         if record[field_name] == field_value:
-            filtered_ata_list.append(record)
-    return filtered_ata_list
+            filtered_data_list.append(record)
+    return filtered_data_list
 
 
 def calculate_total(data_list, field_name):
@@ -60,7 +60,11 @@ def calculate_total(data_list, field_name):
     # Hint: Initialize a total variable to 0
     # Hint: Loop through each record and add float(record[field_name]) to total
     # Hint: Remember to convert string values to float!
-    pass
+    total = 0.0
+    for record in data_list:
+        value_to_add = float(record[field_name])
+        total += value_to_add
+    return total
 
 
 def calculate_average(data_list, field_name):
@@ -115,16 +119,20 @@ if __name__ == '__main__':
     pilots = read_csv_file('../data/pilots.csv')
     print(f"Loaded {len(pilots)} pilots")
 
-    print(f"First pilot: {pilots[0]}")
+    print(f"First pilot entry: {pilots[0]}")
 
     # count_records(data_list):
-    pilot_count = count_records(pilots)
-    print(f"Pilot count: {pilot_count}")
+    pilots_count = count_records(pilots)
+    print(f"Pilots count: {pilots_count}")
 
     # get_unique_values(data_list, field_name):
-    pilot_ranks = get_unique_values(pilots, 'rank')
-    print(f"Pilot ranks: {pilot_ranks}")
+    pilots_ranks = get_unique_values(pilots, 'rank')
+    print(f"Pilots ranks: {pilots_ranks}")
 
     # filter_by_field(data_list, field_name, field_value):
-    pilot_ranks_filtered = filter_by_field(pilots, 'rank', 'Lt')
-    print(f"Pilot ranks filtered: {pilot_ranks_filtered}")
+    pilots_rank_filtered = filter_by_field(pilots, 'rank', 'Lt')
+    print(f"Pilots ranks filtered by Lt: {pilots_rank_filtered}")
+
+    # calculate_total(data_list, field_name):
+    pilots_total_flight_hours = calculate_total(pilots, 'total_flight_hours')
+    print(f"Pilots total flight hours: {pilots_total_flight_hours}")
