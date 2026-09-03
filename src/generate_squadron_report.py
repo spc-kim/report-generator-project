@@ -135,15 +135,6 @@ def generate_squadron_report(squadron_code, output_file):
     report += f"\nAVERAGE SQUADRON MISSION DURATION:\t{squadron_avg_mission_duration:.1f}"
     report = report.upper()
 
-    # Current operational status:
-    # squadron_mission_statuses = []
-    # for status in squadron_operational_status:
-    #     squadron_mission_statuses.append(status)
-    # squadron_operational_status_str = ', '.join(squadron_mission_statuses)
-    # report += f"\nCURRENT OPERATIONAL STATUS: {squadron_operational_status_str}"
-
-    # print(report)
-
     # TODO: PART 6 - Write the report to file
     rf.write_report_to_file(output_file, report)
 
