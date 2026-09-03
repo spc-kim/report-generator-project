@@ -123,8 +123,12 @@ def generate_squadron_report(squadron_code, output_file):
     report += f"\nTOTAL SQUADRON MISSIONS FLOWN: {squadron_total_missions}"
 
     # Breakdown of missions by type (Training, Patrol, Combat, etc.):
-    squadron_mission_types_str = ', '.join(squadron_mission_types)
-    report += f"\nBREAKDOWN OF SQUADRON MISSIONS BY TYPE:\n\t{squadron_mission_types_str}"
+    squadron_mission_types_str = ', '.join(squadron_mission_types).upper()
+    report += f"\nBREAKDOWN OF SQUADRON MISSIONS BY TYPE:"
+    for mission_type in squadron_mission_types:
+        flight_logs_of_type = rf.filter_by_field(squadron_flight_logs, 'mission_type', mission_type)
+        count_per_type = rf.count_records(flight_logs_of_type)
+        report += f"\n\t{mission_type.upper()}: {count_per_type}"
 
     # Average mission duration:
     report += f"\nAVERAGE SQUADRON MISSION DURATION: {squadron_avg_mission_duration:.1f}"
@@ -135,10 +139,11 @@ def generate_squadron_report(squadron_code, output_file):
         squadron_mission_statuses.append(status.upper())
     squadron_operational_status_str = ', '.join(squadron_mission_statuses)
     report += f"\nCURRENT OPERATIONAL STATUS: {squadron_operational_status_str}"
-    print(report)
+
+    # print(report)
 
     # TODO: PART 6 - Write the report to file
-    pass
+    rf.write_report_to_file(output_file, report)
 
 
 # Main execution
