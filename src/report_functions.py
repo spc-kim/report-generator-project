@@ -72,8 +72,10 @@ def calculate_average(data_list, field_name):
     # TODO: Your code here
     # Hint: Use calculate_total() and count_records() functions
     # Hint: Average = total / count
-    total = calculate_total(data_list, field_name)
     count = count_records(data_list)
+    if count == 0:
+        return 0.0
+    total = calculate_total(data_list, field_name)
     average = total / count
     return average
 
@@ -83,7 +85,9 @@ def find_record_by_id(data_list, id_field, id_value):
     # TODO: Your code here
     # Hint: Loop through data_list
     # Hint: Return the record when record[id_field] == id_value
-    pass
+    for record in data_list:
+        if record[id_field] == id_value:
+            return record
 
 
 def join_data(primary_list, secondary_list, primary_key, foreign_key):
@@ -143,3 +147,7 @@ if __name__ == '__main__':
     # calculate_average(data_list, field_name):
     pilots_average_flight_hours = calculate_average(pilots, 'total_flight_hours')
     print(f"Pilots average flight hours: {pilots_average_flight_hours}")
+
+    # find_record_by_id(data_list, id_field, id_value):
+    pilots_twentieth_id = find_record_by_id(pilots, 'pilot_id', 'P020')
+    print(f"Pilots 20th ID: {pilots_twentieth_id}")
