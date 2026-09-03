@@ -1,7 +1,7 @@
-============================================================
-                 SQUADRON ACTIVITY REPORT:                  
-                           VFA-41                           
-============================================================
+======================================================================
+                      SQUADRON ACTIVITY REPORT:                       
+                                VFA-41                                
+======================================================================
 TOTAL SQUADRON PERSONNEL:	3
 SQUADRON PERSONNEL ROSTER:
 	PERSONNEL ID: P001		NAME: MITCHELL, PETER		RANK: CAPT
