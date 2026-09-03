@@ -26,7 +26,8 @@ def count_records(data_list):
     """Counts the number of records in a dataset."""
     # TODO: Your code here
     # Hint: Use the len() function
-    pass
+    records = len(data_list)
+    return records
 
 
 def get_unique_values(data_list, field_name):
@@ -107,3 +108,7 @@ if __name__ == '__main__':
     print(f"Loaded {len(pilots)} pilots")
 
     print(f"First pilot: {pilots[0]}")
+
+    # Test count_records
+    pilot_count = count_records(pilots)
+    print(f"Pilot count: {pilot_count}")
