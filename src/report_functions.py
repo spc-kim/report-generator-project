@@ -103,11 +103,14 @@ def join_data(primary_list, secondary_list, primary_key, foreign_key):
     for secondary_record in secondary_list:
         key_id = secondary_record[primary_key]
         lookup[key_id] = secondary_record
+    joined_list = []
     for primary_record in primary_list:
-        match_id = primary_record[foreign_key]
+        new_record = primary_record.copy()
+        match_id = new_record[foreign_key]
         if match_id in lookup:
-            primary_record.update(lookup[match_id])
-    return primary_list
+            new_record.update(lookup[match_id])
+        joined_list.append(new_record)
+    return joined_list
 
 
 def write_report_to_file(filepath, content):
@@ -124,9 +127,12 @@ def format_header(title):
     # Hint: Use "=" * 60 to create a line of equals signs
     # Hint: Use .center(60) to center the title
     divider = '=' * 70
-    centered_title = title.center(70)
-    header = f"{divider}\n{centered_title}\n{divider}"
-    return header
+    lines = title.split('\n')
+    centered_lines = []
+    for line in lines:
+        centered_lines.append(line.center(70))
+    header_content = '\n'.join(centered_lines)
+    return f"{divider}\n{header_content}\n{divider}"
 
 
 # Testing functions
